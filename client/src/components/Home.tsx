@@ -2,6 +2,8 @@ import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 
 import "./home.css";
 import Deck from "./Deck";
+import getDecks from "../fetchUtils/getDeck";
+import apiCreateDeck from "../fetchUtils/createDeck";
 
 export type DecksResponse = {
   title: string;
@@ -16,45 +18,13 @@ const Home = () => {
 
   //fetch all decks
   useEffect(() => {
-    const fetchDecks = (async () => {
-      try {
-        const response = await fetch("http://localhost:5000/decks");
-        if (!response.ok) throw Error(response.statusText);
-        const data = await response.json();
-        console.log(data);
-        if (Array.isArray(data)) {
-          console.log("it is an array");
-          setDecks(data);
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          console.log(error.message);
-          setError(error.message);
-        }
-      }
-    })();
+    getDecks(setDecks, setError);
   }, []);
 
   //on clicking the form button
   const createDeck = async (e: FormEvent) => {
     e.preventDefault();
-    if (flashText === "") return;
-    try {
-      //send off our data, fetch requires headers to convert into json
-      const response = await fetch("http://localhost:5000/decks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title: flashText }),
-      });
-      if (!response.ok) throw Error(response.statusText);
-      //also have to run .json() to convert back into JSON format
-      const data = await response.json();
-      setFlashText("");
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      }
-    }
+    apiCreateDeck(decks, setDecks, setError, flashText, setFlashText);
   };
 
   //reset error message
@@ -74,7 +44,14 @@ const Home = () => {
       {error !== "" && <div className="errorBar">{error}</div>}
       <div className="deckContainer">
         {decks?.map((deck) => {
-          return <Deck deck={deck} key={deck._id} />;
+          return (
+            <Deck
+              deck={deck}
+              setError={setError}
+              setDecks={setDecks}
+              key={deck._id}
+            />
+          );
         })}
       </div>
       <div className="formContainer">

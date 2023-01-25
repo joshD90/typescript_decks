@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { application, Request, Response } from "express";
 import mongoose from "mongoose";
 
 import { Deck } from "../../models/Deck";
@@ -50,6 +50,20 @@ router.post("/", async (req: Request, res: Response) => {
       .send(
         "There was an issue when trying to save the document to the database"
       );
+  }
+});
+
+//deleting a deck
+router.delete("/:deckId", async (req: Request, res: Response) => {
+  console.log(req.params.deckId);
+  try {
+    const deletedDeck = await Deck.findByIdAndDelete(req.params.deckId);
+    res.status(200).json({
+      message: "successfully deleted the entry",
+      deleted: deletedDeck,
+    });
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
