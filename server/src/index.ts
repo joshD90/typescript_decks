@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 
 import deckRouter from "./routes/deckRouter";
 
@@ -9,6 +10,12 @@ const app = express();
 mongoose.set("strictQuery", true);
 
 //set up middleware
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
