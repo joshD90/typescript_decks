@@ -5,7 +5,7 @@ const getDecks = async (
   searchTerm?: string
 ) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_BASE_URL}`);
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/decks/`);
     if (!response.ok) throw Error(response.statusText);
     const data = await response.json();
     //make sure that response is of type array before pluggin into set state
@@ -18,6 +18,25 @@ const getDecks = async (
       console.log(error.message);
       setError(error.message);
     }
+  }
+};
+//get a single deck by Id
+export const getSingleDeck = async (
+  id: string,
+  setDeck: React.Dispatch<React.SetStateAction<any>>,
+  setError: React.Dispatch<React.SetStateAction<any>>
+) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_URL}/decks/${id}`
+    );
+    if (!response.ok) throw Error("There was no document by that id");
+    const data = await response.json();
+    console.log(data);
+
+    setDeck(data);
+  } catch (error) {
+    if (error instanceof Error) setError(error.message);
   }
 };
 

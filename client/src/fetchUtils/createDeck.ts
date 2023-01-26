@@ -11,7 +11,7 @@ const apiCreateDeck = async (
   if (flashText === "") return;
   try {
     //send off our data, fetch requires headers to convert into json
-    const response = await fetch(import.meta.env.VITE_BASE_URL, {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/decks/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: flashText }),

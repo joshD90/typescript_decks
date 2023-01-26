@@ -4,11 +4,13 @@ import "./home.css";
 import Deck from "./Deck";
 import getDecks from "../fetchUtils/getDeck";
 import apiCreateDeck from "../fetchUtils/createDeck";
+import { Card } from "./SingleDeck";
 
 export type DecksResponse = {
   title: string;
   _id: string;
   __v: number;
+  cards: Card[] | [];
 };
 
 const Home = () => {

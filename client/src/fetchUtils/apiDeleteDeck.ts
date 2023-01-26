@@ -7,7 +7,7 @@ const apiDeleteDeck = async (
 ) => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_BASE_URL}/${deck._id}`,
+      `${import.meta.env.VITE_BASE_URL}/decks/${deck._id}`,
       {
         method: "DELETE",
       }

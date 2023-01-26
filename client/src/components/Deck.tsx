@@ -1,7 +1,8 @@
 import React from "react";
 import apiDeleteDeck from "../fetchUtils/apiDeleteDeck";
-import "./deck.css";
+import { Link } from "react-router-dom";
 
+import "./deck.css";
 import { DecksResponse } from "./Home";
 
 type Props = {
@@ -19,7 +20,9 @@ const Deck: React.FC<Props> = ({ deck, setError, setDecks }) => {
     <div className="card">
       <button onClick={deleteCard}>Del</button>
       <h3>{deck.title}</h3>
-      <div>This should be the place for the deck body</div>
+      <Link to={`/decks/${deck._id}`}>
+        <div>This should be the place for the deck body</div>
+      </Link>
     </div>
   );
 };

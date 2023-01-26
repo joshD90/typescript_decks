@@ -1,0 +1,45 @@
+.singleDeckContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
+  gap: 1rem;
+  padding: 1rem;
+}
+.cardsContainer {
+  width: 100vw;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.createCardContainer {
+  border: 1px solid white;
+  border-radius: 0.3rem;
+  padding: 1rem;
+}
+.createCardContainer h3 {
+  margin: 0 0 1rem 0;
+}
+.createCardContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.inputDiv input {
+  font-size: 1rem;
+  padding: 0.2rem;
+}
+.createCardContainer button {
+  margin-top: 1rem;
+}
